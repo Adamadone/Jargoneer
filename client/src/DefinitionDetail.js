@@ -3,7 +3,7 @@ function DefinitionDetail({ definition }) {
   
 
   return (
-    <div style={{ display: "contents", rowGap: "0px", }}>
+    <div style={{ display: "inline", rowGap: "0px", }}>
       <div style={{ fontSize: "25px" }}>
         {definition.name}
       </div>

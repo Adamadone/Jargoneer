@@ -1,7 +1,6 @@
 import Button from "react-bootstrap/esm/Button.js";
 import { useNavigate } from "react-router-dom";
 
-import DefinitionDateTimeBadge from "./DefinitionDateTimeBadge";
 import DefinitionDetail from "./DefinitionDetail";
 
 import Icon from "@mdi/react";
@@ -20,13 +19,7 @@ function DefinitionCard({ definition, setShowDefinitionForm, setShowConfirmDelet
           justifyContent: "right",
           alignItems: "center"
         }}
-      >
-        <Button
-          onClick={() => navigate("/definitionDetail?id=" + definition.id)}
-          size={"sm"}
         >
-          <Icon path={mdiEyeOutline} size={0.7} />
-        </Button>
         <Button onClick={() => setShowDefinitionForm(definition)} size={"sm"}>
           <Icon path={mdiPencil} size={0.7} />
         </Button>
@@ -38,6 +31,20 @@ function DefinitionCard({ definition, setShowDefinitionForm, setShowConfirmDelet
           <Icon path={mdiTrashCanOutline} size={0.7} />
         </Button>
       </div>
+      <div
+        style={{
+          display: "grid",
+          padding: "16px",
+          gap: "5px",
+          justifyContent: "normal",
+          alignItems: "normal"
+        }}
+        >
+        <Button
+          onClick={() => navigate("/definitionDetail?id=" + definition.id)}
+          size={"sm"}
+        >Zobrazit komentáře
+        </Button></div>
     </div>
   );
 }
