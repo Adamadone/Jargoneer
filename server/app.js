@@ -6,8 +6,8 @@ const port = 8000;
 const definitionController = require("./controller/definition");
 const userController = require("./controller/user");
 const categoryController = require("./controller/category");
-const messageController = require("./controller/message");
 const noteController = require("./controller/note");
+const commentController = require("./controller/comments");
 
 app.use(express.json()); // podpora pro application/json
 app.use(express.urlencoded({ extended: true })); // podpora pro application/x-www-form-urlencoded
@@ -21,8 +21,8 @@ app.get("/", (req, res) => {
 app.use("/definition", definitionController);
 app.use("/user", userController);
 app.use("/category", categoryController);
-app.use("/message", messageController);
 app.use("/note", noteController);
+app.use("/comment", commentController)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -44,6 +44,15 @@ function update(definition) {
   }
 }
 
+function createComment(comment, definitionId) {
+  comment.id = crypto.randomBytes(16).toString("hex");
+  const currentDefinition = get(definitionId);
+  if (!currentDefinition) return null;
+  currentDefinition.comments.push(comment);
+  const updatedDefinition = update(currentDefinition);
+  return updatedDefinition;
+}
+
 // Method to remove an definition from a file
 function remove(definitionId) {
   try {
@@ -80,4 +89,5 @@ module.exports = {
   update,
   remove,
   list,
+  createComment
 };

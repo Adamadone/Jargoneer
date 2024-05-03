@@ -8,19 +8,20 @@ const definitionDao = require("../../dao/definition-dao.js");
 const schema = {
   type: "object",
   properties: {
-    name: { type: "string" },
-    desc: { type: "string" },
+    id: { type: "string", minLength: 32, maxLength: 32 },
+    comment: {type: "string"},
   },
-  required: ["name", "desc"],
+  required: ["id", "comment"],
   additionalProperties: false,
 };
 
 async function CreateAbl(req, res) {
   try {
-    let definition = req.body;
+    
+    let body = req.body;
 
     // validate input
-    const valid = ajv.validate(schema, definition);
+    const valid = ajv.validate(schema, body);
     if (!valid) {
       res.status(400).json({
         code: "dtoInIsNotValid",
@@ -30,8 +31,16 @@ async function CreateAbl(req, res) {
       return;
     }
 
-    definition = definitionDao.create({...definition, comments:[]});
-    res.json(definition);
+    const updatedDefinition = definitionDao.createComment({text:"body.comment"}, body.id);
+    if (!updatedDefinition) {
+      res.status(404).json({
+        code: "definitionNotFound",
+        message: `Definition ${body.id} not found`,
+      });
+      return;
+    }
+
+    res.json(updatedDefinition);
   } catch (e) {
     res.status(500).json({ message: e.message });
   }
