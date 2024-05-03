@@ -7,11 +7,11 @@ function DefinitionDetail({ definition }) {
       <div style={{ fontSize: "25px" }}>
         {definition.name}
       </div>
-      <div className="row" style={{ margin: "5%"}}>
+      <div className="row" style={{ margin: "0%"}}>
         Popis:
       </div>
       <></>
-      <div className="row" style={{ margin: "5%", height:"150px", overflow: "auto"}}>
+      <div className="row" style={{ margin: "0%", height:"150px", overflow: "auto"}}>
         {definition.desc}
       </div>
     </div>

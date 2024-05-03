@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import DefinitionDetail from "./DefinitionDetail";
 
 import Icon from "@mdi/react";
-import { mdiEyeOutline, mdiPencil, mdiTrashCanOutline } from "@mdi/js";
+import { mdiPencil, mdiTrashCanOutline } from "@mdi/js";
 
 function DefinitionCard({ definition, setShowDefinitionForm, setShowConfirmDeleteDialog }) {
   const navigate = useNavigate();

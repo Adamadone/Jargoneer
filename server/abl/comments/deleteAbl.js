@@ -8,14 +8,14 @@ const definitionDao = require("../../dao/definition-dao.js");
 const schema = {
   type: "object",
   properties: {
-    id: { type: "string", minLength: 32, maxLength: 32 },
-    comment: {type: "string"},
+    definitionId: { type: "string", minLength: 32, maxLength: 32 },
+    commentId: { type: "string", minLength: 32, maxLength: 32 },
   },
-  required: ["id", "comment"],
+  required: ["definitionId", "commentId"],
   additionalProperties: false,
 };
 
-async function CreateAbl(req, res) {
+async function DeleteAbl(req, res) {
   try {
     
     let body = req.body;
@@ -31,11 +31,11 @@ async function CreateAbl(req, res) {
       return;
     }
 
-    const updatedDefinition = definitionDao.createComment({text:body.comment}, body.id);
+    const updatedDefinition = definitionDao.deleteComment(body.commentId, body.definitionId);
     if (!updatedDefinition) {
       res.status(404).json({
         code: "definitionNotFound",
-        message: `Definition ${body.id} not found`,
+        message: `Definition ${body.definitionId} not found`,
       });
       return;
     }
@@ -46,4 +46,4 @@ async function CreateAbl(req, res) {
   }
 }
 
-module.exports = CreateAbl;
+module.exports = DeleteAbl;

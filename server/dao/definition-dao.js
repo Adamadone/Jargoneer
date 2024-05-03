@@ -53,6 +53,16 @@ function createComment(comment, definitionId) {
   return updatedDefinition;
 }
 
+function deleteComment(commentId, definitionId) {
+  const currentDefinition = get(definitionId);
+  if (!currentDefinition) return null;
+  currentDefinition.comments = currentDefinition.comments.filter(function (comment){
+    return comment.id != commentId
+  });
+  const updatedDefinition = update(currentDefinition);
+  return updatedDefinition;
+}
+
 // Method to remove an definition from a file
 function remove(definitionId) {
   try {
@@ -89,5 +99,6 @@ module.exports = {
   update,
   remove,
   list,
-  createComment
+  createComment,
+  deleteComment
 };

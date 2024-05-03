@@ -1,12 +1,16 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DefinitionContext } from "./DefinitionContext";
 import { useNavigate } from "react-router-dom";
 
 import DefinitionDetail from "./DefinitionDetail";
+import { Button, Card, Form, FormGroup, FormLabel } from "react-bootstrap";
+import Icon from "@mdi/react";
+import { mdiPencil, mdiTrashCan } from "@mdi/js";
 
 function DefinitionRoute({ setShowDefinitionForm }) {
   const navigate = useNavigate();
-  const { definition } = useContext(DefinitionContext);
+  const { definition, handlerMap} = useContext(DefinitionContext);
+  const [showAlert, setShowAlert] = useState(null);
   
 
   return (
@@ -23,6 +27,67 @@ function DefinitionRoute({ setShowDefinitionForm }) {
             }}
           >
           </div>
+          <hr className="hr" />
+          <div>
+            <Card className="text-center">
+              <Card.Body>
+                <Card.Title>Komentáře</Card.Title>
+              <Form
+              onSubmit={async (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                var formData = Object.fromEntries(new FormData(e.target));
+                try {
+                  if (definition.id) {
+                    formData.id = definition.id;
+                    await handlerMap.createComment(formData);
+                  } else {
+                    await handlerMap.createComment(formData);
+                  }
+      
+                  setShowDefinitionForm(false);
+                } catch (e) {
+                  console.error(e);
+                  setShowAlert(e.message);
+                }
+              }}>
+                <FormGroup className="mb-3" controlId="formBasicComment">
+                  <Form.Control 
+                  as="textarea"
+                  name="comment"
+                  rows={3}
+                  required
+                  />
+                </FormGroup>
+                <Button type="submit" variant="primary">Přidejte komentář</Button>
+              </Form>
+              </Card.Body>
+            </Card>
+          </div>
+          <div className="row" style={{ margin: "0%", height:"auto", overflow: "auto"}}>
+            {definition.comments.map(function (comment){
+              return <Card key={comment.id}>
+                      <Card.Body>
+                        <Card.Text>
+                          {comment.text}
+                        </Card.Text>
+                        <div style={{
+                          display: "grid",
+                          gap: "2px",
+                          justifyContent: "right",
+                          alignItems: "center"
+                        }}>
+                        <Button variant="primary">
+                          <Icon path={mdiPencil} size={0.7}></Icon>
+                        </Button>
+                        <Button variant="danger">
+                          <Icon path={mdiTrashCan} size={0.7}></Icon>
+                        </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+            })}
+          </div>
         </>
       ) : (
         "loading..."
@@ -36,7 +101,6 @@ function componentStyle() {
     margin: "12px auto",
     padding: "8px",
     display: "grid",
-    gridTemplateColumns: "max-content auto 32px",
     columnGap: "8px",
     maxWidth: "640px",
   };

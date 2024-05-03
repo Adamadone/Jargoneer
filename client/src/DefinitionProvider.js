@@ -43,8 +43,34 @@ function DefinitionProvider({ children }) {
       throw new Error(JSON.stringify(responseJson, null, 2));
     }
   }
+  
+  async function createComment(dtoIn) {
+    setDefinitionLoadObject((current) => ({ ...current, state: "pending" }));
+    const response = await fetch(
+      `http://localhost:8000/comment/create`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dtoIn)
+      }
+    );
+    const responseJson = await response.json();
+    if (response.status < 400) {
+      setDefinitionLoadObject({ state: "ready", data: responseJson });
+      return responseJson;
+    } else {
+      setDefinitionLoadObject((current) => ({
+        state: "error",
+        data: current.data,
+        error: responseJson.error,
+      }));
+      throw new Error(JSON.stringify(responseJson, null, 2));
+    }
+  }
+
   const value = {
     definition: definitionLoadObject.data,
+    handlerMap: { createComment }
   };
 
   return (
