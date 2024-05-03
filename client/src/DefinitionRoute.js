@@ -3,14 +3,15 @@ import { DefinitionContext } from "./DefinitionContext";
 import { useNavigate } from "react-router-dom";
 
 import DefinitionDetail from "./DefinitionDetail";
-import { Button, Card, Form, FormGroup, FormLabel } from "react-bootstrap";
+import { Button, Card, CardFooter, CardHeader, CardTitle, Form, FormGroup, FormLabel } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiPencil, mdiTrashCan } from "@mdi/js";
 
-function DefinitionRoute({ setShowDefinitionForm }) {
+function DefinitionRoute({ setShowDefinitionForm}) {
   const navigate = useNavigate();
   const { definition, handlerMap} = useContext(DefinitionContext);
   const [showAlert, setShowAlert] = useState(null);
+  const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false);
   
 
   return (
@@ -31,7 +32,6 @@ function DefinitionRoute({ setShowDefinitionForm }) {
           <div>
             <Card className="text-center">
               <Card.Body>
-                <Card.Title>Komentáře</Card.Title>
               <Form
               onSubmit={async (e) => {
                 e.preventDefault();
@@ -50,7 +50,7 @@ function DefinitionRoute({ setShowDefinitionForm }) {
                   console.error(e);
                   setShowAlert(e.message);
                 }
-              }}>
+               }}>
                 <FormGroup className="mb-3" controlId="formBasicComment">
                   <Form.Control 
                   as="textarea"
@@ -80,7 +80,21 @@ function DefinitionRoute({ setShowDefinitionForm }) {
                         <Button variant="primary">
                           <Icon path={mdiPencil} size={0.7}></Icon>
                         </Button>
-                        <Button variant="danger">
+                        <Button 
+                        onClick={async (e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          try {
+                            if (comment.id) {
+                              await handlerMap.deleteComment(comment);
+                            } else {
+                              await handlerMap.deleteComment(comment);
+                            }
+                          } catch (e) {
+                            console.error(e);
+                            setShowAlert(e.message);
+                          }
+                        }}>
                           <Icon path={mdiTrashCan} size={0.7}></Icon>
                         </Button>
                         </div>

@@ -5,8 +5,6 @@ const port = 8000;
 
 const definitionController = require("./controller/definition");
 const userController = require("./controller/user");
-const categoryController = require("./controller/category");
-const noteController = require("./controller/note");
 const commentController = require("./controller/comments");
 
 app.use(express.json()); // podpora pro application/json
@@ -20,8 +18,6 @@ app.get("/", (req, res) => {
 
 app.use("/definition", definitionController);
 app.use("/user", userController);
-app.use("/category", categoryController);
-app.use("/note", noteController);
 app.use("/comment", commentController)
 
 app.listen(port, () => {

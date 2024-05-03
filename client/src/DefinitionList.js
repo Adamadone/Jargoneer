@@ -10,12 +10,10 @@ import Container from "react-bootstrap/esm/Container.js";
 import Icon from "@mdi/react";
 import { mdiPlus } from "@mdi/js";
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog.js";
-import CategoryForm from "./CategoryForm.js";
 
 function DefinitionList() {
   const { definitionList } = useContext(DefinitionListContext);
   const [showDefinitionForm, setShowDefinitionForm] = useState(false);
-  const [showCategoryForm, setShowCategoryForm] = useState(false);
   const [showButtons, setShowButtons] = useState(false);
   const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false);
 
@@ -51,8 +49,8 @@ function DefinitionList() {
           <Button variant="light" onClick={() => setShowDefinitionForm({})}>
             Vytvořit definici
           </Button> 
-          <Button variant="light" onClick={() => setShowCategoryForm({})}>
-            Vytvořit kategorii
+          <Button variant="light">
+            Vytvořit kategorii (placeholder)
           </Button>
         </div>
         </>): null}
@@ -60,9 +58,6 @@ function DefinitionList() {
       
       {!!showDefinitionForm ? (
         <DefinitionForm definition={showDefinitionForm} setShowDefinitionForm={setShowDefinitionForm} />
-      ) : null}
-      {!!showCategoryForm ? (
-        <CategoryForm category={showCategoryForm} setShowCategoryForm={setShowCategoryForm} />
       ) : null}
       {!!showConfirmDeleteDialog ? (
         <ConfirmDeleteDialog

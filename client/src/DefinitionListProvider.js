@@ -114,31 +114,10 @@ function DefinitionListProvider({ children }) {
     }
   }
 
-  async function handleCategory(dtoIn) {
-    setDefinitionLoadObject((current) => ({ ...current, state: "pending" }));
-    const response = await fetch(`http://localhost:8000/category/update`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dtoIn),
-    });
-    const responseJson = await response.json();
-
-    if (response.status < 400) {
-      await handleLoad();
-    } else {
-      setDefinitionLoadObject((current) => ({
-        state: "error",
-        data: current.data,
-        error: responseJson,
-      }));
-      throw new Error(JSON.stringify(responseJson, null, 2));
-    }
-  }
-
   const value = {
     state: definitionLoadObject.state,
     definitionList: definitionLoadObject.data || [],
-    handlerMap: { handleCreate, handleUpdate, handleDelete, handleCategory },
+    handlerMap: { handleCreate, handleUpdate, handleDelete},
   };
 
   return (
