@@ -4,7 +4,6 @@ const ajv = new Ajv();
 addFormats(ajv);
 
 const definitionDao = require("../../dao/definition-dao.js");
-const categoryDao = require("../../dao/category-dao.js");
 
 const schema = {
   type: "object",
@@ -41,8 +40,9 @@ async function GetAbl(req, res) {
       return;
     }
 
-    const categoryMap = categoryDao.definitionMap();
+    const categoryMap = definitionDao.definitionMap();
     definition.userMap = categoryMap[reqParams.id] || {};
+    
 
     res.json(definition);
   } catch (e) {

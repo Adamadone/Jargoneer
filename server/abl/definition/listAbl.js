@@ -1,11 +1,10 @@
 const definitionDao = require("../../dao/definition-dao.js");
-const categoryDao = require("../../dao/category-dao.js");
 
 async function ListAbl(req, res) {
   try {
     const definitionList = definitionDao.list();
 
-    const categoryMap = categoryDao.definitionMap();
+    const categoryMap = definitionDao.definitionMap();
 
     definitionList.forEach((definition) => {
       definition.userMap = categoryMap[definition.id] || {};

@@ -2,8 +2,6 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 
 const definitionDao = require("../../dao/definition-dao.js");
-const categoryDao = require("../../dao/category-dao.js");
-
 const schema = {
   type: "object",
   properties: {
@@ -29,7 +27,7 @@ async function DeleteAbl(req, res) {
       return;
     }
 
-    const categoryMap = categoryDao.definitionMap();
+    const categoryMap = definitionDao.definitionMap();
     if (categoryMap[reqParams.id]) {
       res.status(400).json({
         code: "definitionHasCategories",

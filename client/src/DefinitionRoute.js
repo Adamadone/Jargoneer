@@ -3,7 +3,7 @@ import { DefinitionContext } from "./DefinitionContext";
 import { useNavigate } from "react-router-dom";
 
 import DefinitionDetail from "./DefinitionDetail";
-import { Button, Card, CardFooter, CardHeader, CardTitle, Form, FormGroup, FormLabel } from "react-bootstrap";
+import { Button, Card, Form, FormGroup } from "react-bootstrap";
 import Icon from "@mdi/react";
 import { mdiPencil, mdiTrashCan } from "@mdi/js";
 
@@ -11,7 +11,6 @@ function DefinitionRoute({ setShowDefinitionForm}) {
   const navigate = useNavigate();
   const { definition, handlerMap} = useContext(DefinitionContext);
   const [showAlert, setShowAlert] = useState(null);
-  const [showConfirmDeleteDialog, setShowConfirmDeleteDialog] = useState(false);
   
 
   return (

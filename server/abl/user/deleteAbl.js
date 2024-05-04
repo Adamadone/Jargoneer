@@ -2,7 +2,6 @@ const Ajv = require("ajv");
 const ajv = new Ajv();
 
 const userDao = require("../../dao/user-dao.js");
-const categoryDao = require("../../dao/category-dao.js");
 
 const schema = {
   type: "object",
@@ -29,14 +28,6 @@ async function DeleteAbl(req, res) {
       return;
     }
 
-    const categoryMap = categoryDao.userMap();
-    if (categoryMap[reqParams.id]) {
-      res.status(400).json({
-        code: "userHasCategorys",
-        message: `User ${reqParams.id} has categorys`,
-      });
-      return;
-    }
     userDao.remove(reqParams.id);
 
     res.json({});

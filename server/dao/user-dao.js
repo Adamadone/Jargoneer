@@ -72,10 +72,27 @@ function list() {
   }
 }
 
+function userMap() {
+  const categoryList = list();
+  const categoryMap = {};
+  categoryList.forEach((category) => {
+    if (!categoryMap[category.userId])
+      categoryMap[category.userId] = {};
+    if (!categoryMap[category.userId][category.definitionId])
+      categoryMap[category.userId][category.definitionId] = {};
+    categoryMap[category.userId][category.definitionId] = {
+      category: category.category,
+      guests: category.guests,
+    };
+  });
+  return categoryMap;
+}
+
 module.exports = {
   get,
   create,
   update,
   remove,
   list,
+  userMap,
 };

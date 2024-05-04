@@ -9,7 +9,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
 import Icon from "@mdi/react";
-import { mdiVolleyball, mdiLogout, mdiCheckBold } from "@mdi/js";
+import { mdiLogout } from "@mdi/js";
 import Button from "react-bootstrap/esm/Button";
 
 function NavBar() {

@@ -93,6 +93,22 @@ function list() {
   }
 }
 
+function definitionMap() {
+  const categoryList = list();
+  const categoryMap = {};
+  categoryList.forEach((category) => {
+    if (!categoryMap[category.definitionId])
+      categoryMap[category.definitionId] = {};
+    if (!categoryMap[category.definitionId][category.userId])
+      categoryMap[category.definitionId][category.userId] = {};
+    categoryMap[category.definitionId][category.userId] = {
+      category: category.category,
+      guests: category.guests,
+    };
+  });
+  return categoryMap;
+}
+
 module.exports = {
   get,
   create,
@@ -100,5 +116,6 @@ module.exports = {
   remove,
   list,
   createComment,
-  deleteComment
+  deleteComment,
+  definitionMap,
 };
