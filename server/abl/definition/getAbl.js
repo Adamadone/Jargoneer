@@ -40,10 +40,6 @@ async function GetAbl(req, res) {
       return;
     }
 
-    const categoryMap = definitionDao.definitionMap();
-    definition.userMap = categoryMap[reqParams.id] || {};
-    
-
     res.json(definition);
   } catch (e) {
     res.status(500).json({ message: e.message });
